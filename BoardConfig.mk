@@ -31,7 +31,7 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/kernel
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := \
+BOARD_MKBOOTIMG_ARGS := \TW_CRYPTO_KEY_LOC := "footer"
 	--base 0x40078000 \
 	--pagesize 2048 \
 	--kernel_offset 0x00008000 \
@@ -49,6 +49,7 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
 # twrp
+TW_DEVICE_VERSION := 0 for Dexp Ursus M210
 TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TW_THEME := landscape_hdpi
@@ -74,3 +75,4 @@ TW_CRYPTO_REAL_BLKDEV := "/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/
 TW_CRYPTO_MNT_POINT := "/data"
 TW_CRYPTO_FS_TYPE := "ext4"
 TW_CRYPTO_FS_OPTIONS := "noatime,nosuid,nodev,noauto_da_alloc"
+TW_CRYPTO_KEY_LOC := "footer"
