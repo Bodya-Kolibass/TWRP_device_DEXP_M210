@@ -1,1 +1,1 @@
-add_lunch_combo omni_M210-userdebug
+add_lunch_combo omni_M210-eng

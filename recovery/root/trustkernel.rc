@@ -1,0 +1,27 @@
+on fs
+    mkdir /protect_f 0700 root root
+	mount ext4 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1 /protect_f
+	write /proc/bootprof "tkcore: prep SYSTA"
+
+	start teed
+
+on post-fs-data
+	write /proc/bootprof "tkcore: prep SFS"
+	mkdir /data/tee
+
+	write /proc/bootprof "tkcore: prep PP"
+	mkdir /protect_f/tee
+
+	write /proc/bootprof "tkcore: prep SPTA"
+	mkdir /data/tee/t6
+
+on property:trustkernel.log.state=ready
+	write /proc/bootprof "tkcore: prep log"
+	setprop trustkernel.log.state enable
+
+service teed /sbin/teed --systapath /vendor/app/t6 --prot /protect_f/tee --sdrpmbdev /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/sdrpmb
+	user root
+	group root
+    disabled
+    seclabel u:r:recovery:s0
+

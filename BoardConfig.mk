@@ -27,7 +27,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_BOOTLOADER_BOARD_NAME := mt6797
 
 # Kernel
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/kernel
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
@@ -41,12 +41,13 @@ BOARD_MKBOOTIMG_ARGS := \
 	--board omega
 
 # Partitions & Filesystems
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
+#BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
+BOARD_NEEDS_VENDORIMAGE_SYMLINK := true
 
 # twrp
 TW_DEVICE_VERSION := 0 for Dexp Ursus M210
@@ -71,8 +72,7 @@ TW_EXCLUDE_TWRPAPP := true
 # decrypt
 TW_INCLUDE_CRYPTO := true
 TW_CRYPTO_USE_SYSTEM_VOLD := true
-TW_CRYPTO_REAL_BLKDEV := "/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata"
-TW_CRYPTO_MNT_POINT := "/data"
 TW_CRYPTO_FS_TYPE := "ext4"
-TW_CRYPTO_FS_OPTIONS := "noatime,nosuid,nodev,noauto_da_alloc"
-TW_CRYPTO_KEY_LOC := "footer"
+TW_CRYPTO_REAL_BLKDEV := "/dev/block/platform/bootdevice/by-name/userdata"
+TW_CRYPTO_MNT_POINT := "/data"
+TW_CRYPTO_FS_OPTIONS := "nosuid,nodev,noatime,discard,noauto_da_alloc,data=ordered"
